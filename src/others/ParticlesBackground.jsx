@@ -1,25 +1,25 @@
 /* paritcle background effect */
-import { useCallback } from "react"
-import Particles from "react-tsparticles"
-import { loadSlim } from "tsparticles-slim"
+import { useEffect, useState } from "react"
+import { loadSlim } from "@tsparticles/slim"
+import Particles, { initParticlesEngine } from "@tsparticles/react"
 
 export default function ParticlesBackground() {
-    const particlesInit = useCallback(async engine => {
-        console.log(engine)
-        await loadSlim(engine)
+    const [init, setInit] = useState(false)
+
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            await loadSlim(engine)
+        }).then(() => {
+            setInit(true)
+        })
     }, [])
 
-    const particlesLoaded = useCallback(async container => {
-        await console.log(container)
-    }, [])
-
-    return (
-        <Particles
-            id="tsparticles"
-            init={particlesInit}
-            loaded={particlesLoaded}
-            options={{
-                background: {
+    if (init) {
+        return (
+            <Particles
+                id="tsparticles"
+                options={{
+                    background: {
                     color: {
                         value: "#0c1621",
                     },
@@ -73,7 +73,7 @@ export default function ParticlesBackground() {
                             enable: true,
                             area: 800,
                         },
-                        value: 150,
+                        value: 250,
                     },
                     opacity: {
                         value: 0.5,
@@ -86,7 +86,10 @@ export default function ParticlesBackground() {
                     },
                 },
                 detectRetina: true,
-            }}
-        />
-    )
+                }}
+            />
+        )
+    }
+
+    return <></>
 }

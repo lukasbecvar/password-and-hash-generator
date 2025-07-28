@@ -21,7 +21,7 @@ export default function App() {
     const navLinks = [
         { path: "/", label: "Password generator" },
         { path: "/hash", label: "Hash generator" }
-    ];
+    ]
 
     // flag for menu open/close
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,7 +29,7 @@ export default function App() {
     return (
         <Router>
             <div className="relative flex flex-col min-h-screen bg-[#0c1621]">                
-                <ParticlesBackground className="absolute inset-0 z-10"/>
+                <ParticlesBackground className="absolute inset-0 z-50"/>
                 {/* navigation bar */}
                 <nav className="bg-[#0c1621ce] text-white px-6 py-4 border-b border-gray-700 shadow-md z-20">
                     <div className="flex items-center justify-between">
