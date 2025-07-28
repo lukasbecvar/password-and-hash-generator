@@ -67,7 +67,7 @@ export default function App() {
                 <main className="relative flex-grow flex flex-col items-center">
                     <div className="relative w-full h-full text-center">
                         <Routes>
-                            <Route path="/" element={<PasswordGenerator/>}/>
+                            <Route path="*" element={<PasswordGenerator/>}/>
                             <Route path="/hash" element={<HashGenerator/>}/>
                         </Routes>
                     </div>
