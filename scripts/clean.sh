@@ -1,5 +1,5 @@
 #/bin/bash
 
 # clean app
-rm -rf dist
-rm -rf node_modules
+sudo rm -rf dist
+sudo rm -rf node_modules

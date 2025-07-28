@@ -6,4 +6,4 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # start app
-npm run dev
+docker-compose run --rm node npm run dev

@@ -1,4 +1,4 @@
 #/bin/bash
 
 # install app
-npm install
+docker-compose run --rm node npm install

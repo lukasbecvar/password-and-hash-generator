@@ -1,0 +1,10 @@
+# docker compose configuration defines local development stack
+services:
+    node:
+        image: node:22
+        working_dir: /app
+        volumes:
+            - ./:/app
+        network_mode: host
+        ports:
+            - "3000:3000"
