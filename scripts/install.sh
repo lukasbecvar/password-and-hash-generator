@@ -1,4 +1,4 @@
 #/bin/bash
 
 # install app
-docker-compose run --rm node npm install
+docker-compose run --rm node npm install --loglevel=error
