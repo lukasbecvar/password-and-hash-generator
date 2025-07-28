@@ -1,9 +1,14 @@
 # action workflow to build and push docker image on release
 name: Build and push Docker image on release
 
+# on:
+#     release:
+#         types: [published]
+
 on:
-    release:
-        types: [published]
+    push:
+        branches:
+            - main
 
 jobs:
     build:
