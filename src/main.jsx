@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 // include app components
 import HashGenerator from './components/HashGenerator'
 import PasswordGenerator from './components/PasswordGenerator'
+import Base64EncoderDecoder from './components/Base64EncoderDecoder'
 
 // include other elements
 import ParticlesBackground from './others/ParticlesBackground'
@@ -20,7 +21,8 @@ export default function App() {
     // navigation links
     const navLinks = [
         { path: "/", label: "Password generator" },
-        { path: "/hash", label: "Hash generator" }
+        { path: "/hash", label: "Hash generator" },
+        { path: "/base64", label: "Base64" }
     ]
 
     // flag for menu open/close
@@ -69,6 +71,7 @@ export default function App() {
                         <Routes>
                             <Route path="*" element={<PasswordGenerator/>}/>
                             <Route path="/hash" element={<HashGenerator/>}/>
+                            <Route path="/base64" element={<Base64EncoderDecoder/>}/>
                         </Routes>
                     </div>
                 </main>
