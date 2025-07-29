@@ -18,6 +18,7 @@ export default function ParticlesBackground() {
         return (
             <Particles
                 id="tsparticles"
+                canvasClassName="absolute inset-0 pointer-events-none"
                 options={{
                     background: {
                     color: {
@@ -26,6 +27,7 @@ export default function ParticlesBackground() {
                 },
                 fpsLimit: 120,
                 interactivity: {
+                    detectsOn: "canvas",
                     events: {
                         onClick: {
                             enable: true,
