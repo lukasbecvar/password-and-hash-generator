@@ -1,3 +1,4 @@
+// include react functions
 import { useState } from "react"
 
 export default function Base64Tool() {
@@ -6,11 +7,11 @@ export default function Base64Tool() {
     const [textInput, setTextInput] = useState("")
     const [textResult, setTextResult] = useState("")
     const [imageBase64, setImageBase64] = useState("")
-    const [imageDecodedBase64, setImageDecodedBase64] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [textProcessed, setTextProcessed] = useState(false)
     const [imageProcessed, setImageProcessed] = useState(false)
     const [imageDecodeError, setImageDecodeError] = useState(false)
+    const [imageDecodedBase64, setImageDecodedBase64] = useState("")
 
     // handle text encode
     const handleEncodeText = () => {
@@ -32,7 +33,7 @@ export default function Base64Tool() {
         setTextProcessed(true)
     }
 
-    // image handlers
+    // handle image upload
     const handleImageUpload = (e) => {
         const file = e.target.files?.[0]
         if (file) {
@@ -45,7 +46,7 @@ export default function Base64Tool() {
         }
     }
 
-    // handle decode image
+    // handle image decode
     const handleDecodeImage = () => {
         try {
             if (imageDecodedBase64.startsWith("data:image")) {
@@ -60,120 +61,134 @@ export default function Base64Tool() {
         }
     }
 
-    // handle image preview modal open
-    const openModal = () => {
-        setIsModalOpen(true)
-    }
+    const openModal = () => setIsModalOpen(true)
+    const closeModal = () => setIsModalOpen(false)
 
-    // handle image preview modal close
-    const closeModal = () => {
-        setIsModalOpen(false)
-    }
+    const Selector = ({ options, selected, onChange }) => (
+        <div className="flex rounded-md overflow-hidden border border-gray-700">
+            {options.map((opt) => (
+                <button
+                    key={opt}
+                    className={`w-1/2 py-2 font-semibold transition-colors duration-200 ${selected === opt ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                        }`}
+                    onClick={() => onChange(opt)}
+                >
+                    {opt.charAt(0).toUpperCase() + opt.slice(1)}
+                </button>
+            ))}
+        </div>
+    )
 
     return (
-        <div className="max-w-4xl mx-auto p-0 md:mt-10 mb-5 bg-[#0c1621] text-white md:rounded-lg md:shadow-xl md:border border-gray-700 opacity-95">
-            {/* mode switch: text / image */}  
-            <div className="flex w-full overflow-hidden border border-gray-600">
-                {["text", "image"].map((m) => (
-                    <button
-                        key={m}
-                        onClick={() => {
-                            setMode(m)
-                            setAction("encode")
-                            setTextInput("")
-                            setTextResult("")
-                            setImageBase64("")
-                            setImageDecodedBase64("")
-                            setImageDecodeError(false)
-                            setTextProcessed(false)
-                            setImageProcessed(false)
-                        }}
-                        className={`w-1/2 text-center font-semibold transition-colors duration-200 ${mode === m 
-                            ? "bg-blue-600 text-white" 
-                            : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                        }`}
-                        style={{ padding: "12px 0" }}
-                    >
-                        {m.charAt(0).toUpperCase() + m.slice(1)}
-                    </button>
-                ))}
+        <div className="max-w-4xl mx-auto md:mt-10 md:mb-10 p-6 bg-[#0c1621] text-white md:rounded-xl md:shadow-xl md:border border-gray-700">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                {/* select format */}
+                <Selector options={["text", "image"]} selected={mode} onChange={(m) => {
+                    setMode(m)
+                    setAction("encode")
+                    setTextInput("")
+                    setTextResult("")
+                    setImageBase64("")
+                    setImageDecodedBase64("")
+                    setImageDecodeError(false)
+                    setTextProcessed(false)
+                    setImageProcessed(false)
+                }} />
+
+                {/* select action */}
+                <Selector options={["encode", "decode"]} selected={action} onChange={(a) => {
+                    setAction(a)
+                    setTextInput("")
+                    setTextResult("")
+                    setImageDecodedBase64("")
+                    setImageDecodeError(false)
+                    setTextProcessed(false)
+                    setImageProcessed(false)
+                }} />
             </div>
 
-            {/* action switch: encode / decode */}  
-            <div className="flex w-full overflow-hidden border border-gray-600">
-                {["encode", "decode"].map((a) => (
-                    <button
-                        key={a}
-                        onClick={() => {
-                            setAction(a)
-                            setTextInput("")
-                            setTextResult("")
-                            setImageDecodedBase64("")
-                            setImageDecodeError(false)
-                            setTextProcessed(false)
-                            setImageProcessed(false)
-                        }}
-                        className={`w-1/2 text-center font-semibold transition-colors duration-200 ${action === a
-                                ? "bg-green-600 text-white"
-                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                            }`}
-                        style={{ padding: "12px 0" }}
-                    >
-                        {a.charAt(0).toUpperCase() + a.slice(1)}
-                    </button>
-                ))}
-            </div>
-
-            {/* content */}
-            <div className="p-4">
-                {/* text encode */}
-                {mode === "text" && action === "encode" && (
+            <div className="mt-6">
+                {mode === "text" && (
                     <div className="space-y-4">
-                        <label className="block font-semibold">Enter text to encode:</label>
-                        <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" placeholder="Enter text" value={textInput} onChange={(e) => setTextInput(e.target.value)}/>
-                        <button className="w-full md:w-32 bg-green-600 hover:bg-green-700 text-white py-2 rounded" onClick={handleEncodeText}>Encode</button>
+                        <label className="font-semibold">
+                            {action === "encode" ? "Enter text to encode:" : "Paste Base64 to decode:"}
+                        </label>
+                        <textarea
+                            className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600"
+                            placeholder={action === "encode" ? "Enter text" : "Paste Base64"}
+                            value={textInput}
+                            onChange={(e) => setTextInput(e.target.value)}
+                        />
+                        <button
+                            className={`w-full md:w-32 py-2 rounded ${action === "encode" ? "bg-green-600 hover:bg-green-700" : "bg-yellow-600 hover:bg-yellow-700"
+                                }`}
+                            onClick={action === "encode" ? handleEncodeText : handleDecodeText}
+                        >
+                            {action.charAt(0).toUpperCase() + action.slice(1)}
+                        </button>
+
                         {textProcessed && (
-                            <span>
-                                <label className="block font-semibold mt-4">Encoded Base64:</label>
-                                <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" readOnly value={textResult}/>
-                            </span>
+                            <div>
+                                <label className="block font-semibold mt-4">
+                                    {action === "encode" ? "Encoded Base64:" : "Decoded text:"}
+                                </label>
+                                <textarea
+                                    className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600"
+                                    readOnly
+                                    value={textResult}
+                                />
+                            </div>
                         )}
                     </div>
                 )}
 
-                {/* text decode */}
-                {mode === "text" && action === "decode" && (
-                    <div className="space-y-4">
-                        <label className="block font-semibold">Paste Base64 to decode:</label>
-                        <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" placeholder="Paste Base64" value={textInput} onChange={(e) => setTextInput(e.target.value)}/>
-                        <button className="w-full md:w-32 bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded" onClick={handleDecodeText}>Decode</button>
-                        {textProcessed && (
-                            <span>
-                                <label className="block font-semibold mt-4">Decoded text:</label>
-                                <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" readOnly value={textResult}/>
-                            </span>
-                        )}
-                    </div>
-                )}
-
-                {/* image encode */}
                 {mode === "image" && action === "encode" && (
                     <div className="space-y-4">
-                        <label className="block font-semibold">Upload Image to encode:</label>
-                        <input type="file" accept="image/*" className="text-white" onChange={handleImageUpload}/>
+                        <label className="font-semibold">Upload Image to encode:</label>
+                        <label
+                            htmlFor="image-upload"
+                            className="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded cursor-pointer p-6 bg-gray-900 hover:border-blue-500 transition-colors text-gray-300 hover:text-blue-400"
+                        >
+                            <span className="mb-2 select-none">Click or drag & drop to upload image</span>
+                            <input
+                                id="image-upload"
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={handleImageUpload}
+                                onDragOver={(e) => e.preventDefault()}
+                                onDrop={(e) => {
+                                    e.preventDefault()
+                                    if (e.dataTransfer.files.length > 0) {
+                                        const file = e.dataTransfer.files[0]
+                                        const fakeEvent = { target: { files: [file] } }
+                                        handleImageUpload(fakeEvent)
+                                    }
+                                }}
+                            />
+                        </label>
+
                         {imageProcessed && imageBase64 && (
-                            <span>
-                                <label className="block font-semibold mt-4">Encoded Base64:</label>
-                                <textarea className="w-full h-40 p-3 bg-gray-800 text-white rounded border border-gray-600" readOnly value={imageBase64}/>
-                            </span>
+                            <div>
+                                <label className="block font-semibold mt-4 mb-2">Preview & Encoded Base64:</label>
+                                <img
+                                    src={imageBase64}
+                                    alt="Uploaded preview"
+                                    className="max-h-48 w-auto rounded mb-3 shadow-md mx-auto"
+                                />
+                                <textarea
+                                    className="w-full h-40 p-3 bg-gray-800 text-white rounded border border-gray-600 font-mono text-xs overflow-auto"
+                                    readOnly
+                                    value={imageBase64}
+                                />
+                            </div>
                         )}
                     </div>
                 )}
 
-                {/* image decode */}
                 {mode === "image" && action === "decode" && (
                     <div className="space-y-4">
-                        <label className="block font-semibold">Paste Image Base64 to decode:</label>
+                        <label className="font-semibold">Paste Image Base64 to decode:</label>
                         <textarea
                             className="w-full h-40 p-3 bg-gray-800 text-white rounded border border-gray-600"
                             placeholder="Paste image Base64"
@@ -183,7 +198,12 @@ export default function Base64Tool() {
                                 setImageDecodeError(false)
                             }}
                         />
-                        <button className="w-full md:w-48 bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded" onClick={handleDecodeImage}>Decode & Preview</button>
+                        <button
+                            className="w-full md:w-48 bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded"
+                            onClick={handleDecodeImage}
+                        >
+                            Decode & Preview
+                        </button>
                         {imageProcessed && imageDecodedBase64 && !imageDecodeError && (
                             <div className="text-center mt-4">
                                 <img
@@ -194,19 +214,29 @@ export default function Base64Tool() {
                                 />
                             </div>
                         )}
-                        {imageDecodeError && (
-                            <p className="text-red-500 mt-4">Invalid image Base64</p>
-                        )}
+                        {imageDecodeError && <p className="text-red-500 mt-4">Invalid image Base64</p>}
                     </div>
                 )}
             </div>
 
-            {/* modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50" onClick={closeModal}>
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50"
+                    onClick={closeModal}
+                >
                     <div className="relative" onClick={(e) => e.stopPropagation()}>
-                        <button onClick={closeModal} className="absolute top-2 right-2 text-white bg-gray-900 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold hover:bg-gray-700" aria-label="Close modal">×</button>
-                        <img src={imageDecodedBase64} alt="decoded large" className="max-w-screen max-h-screen rounded shadow-lg"/>
+                        <button
+                            onClick={closeModal}
+                            className="absolute top-2 right-2 text-white bg-gray-900 rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold hover:bg-gray-700"
+                            aria-label="Close modal"
+                        >
+                            ×
+                        </button>
+                        <img
+                            src={imageDecodedBase64}
+                            alt="decoded large"
+                            className="max-w-screen max-h-screen rounded shadow-lg"
+                        />
                     </div>
                 </div>
             )}
