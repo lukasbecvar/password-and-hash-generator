@@ -1,11 +1,12 @@
-# build react app
 FROM node:22 AS builder
 
 # set working directory
 WORKDIR /app
 
-# copy package files and install deps (pro lepší cache)
+# copy npm configuration
 COPY package.json package-lock.json* ./
+
+# install dependencies
 RUN npm install
 
 # copy app files
@@ -20,7 +21,7 @@ FROM nginx:stable-alpine
 # remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
 
-# copy built app
+# copy builded app to image
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # expose port 80
