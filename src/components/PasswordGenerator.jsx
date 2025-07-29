@@ -2,7 +2,7 @@
 import { useState } from "react"
 
 export default function PasswordGenerator() {
-    const [length, setLength] = useState(20)
+    const [length, setLength] = useState(25)
     const [copied, setCopied] = useState(false)
     const [password, setPassword] = useState("")
     const [includeNumbers, setIncludeNumbers] = useState(true)
