@@ -10,12 +10,12 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 // include app components
 import HashGenerator from './components/HashGenerator'
+import EncryptionTool from './components/EncryptionTool'
 import PasswordGenerator from './components/PasswordGenerator'
 import Base64EncoderDecoder from './components/Base64EncoderDecoder'
 
 // include other elements
 import ParticlesBackground from './others/ParticlesBackground'
-import EncryptionTool from './components/EncryptionTool'
 
 // main app function component routing
 export default function App() {

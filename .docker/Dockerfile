@@ -1,3 +1,4 @@
+# node js builder image
 FROM node:22 AS builder
 
 # set working directory
