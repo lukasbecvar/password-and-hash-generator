@@ -15,6 +15,7 @@ import Base64EncoderDecoder from './components/Base64EncoderDecoder'
 
 // include other elements
 import ParticlesBackground from './others/ParticlesBackground'
+import EncryptionTool from './components/EncryptionTool'
 
 // main app function component routing
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
     const navLinks = [
         { path: "/", label: "Password generator" },
         { path: "/hash", label: "Hash generator" },
+        { path: "/encryption", label: "Encryption tool" },
         { path: "/base64", label: "Base64" }
     ]
 
@@ -71,6 +73,7 @@ export default function App() {
                         <Routes>
                             <Route path="*" element={<PasswordGenerator/>}/>
                             <Route path="/hash" element={<HashGenerator/>}/>
+                            <Route path="/encryption" element={<EncryptionTool/>}/>
                             <Route path="/base64" element={<Base64EncoderDecoder/>}/>
                         </Routes>
                     </div>

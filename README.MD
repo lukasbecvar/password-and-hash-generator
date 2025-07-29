@@ -2,7 +2,6 @@
 Simple password generator and hasher app.
 
 # TODO
-- [ ] Encrypt/decrypt form
 - [ ] Refactoring and cleaning
 - [ ] Readme file
 
