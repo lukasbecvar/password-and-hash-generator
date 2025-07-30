@@ -9,6 +9,7 @@ function createWindow() {
         minWidth: 800,
         minHeight: 600,
         autoHideMenuBar: true,
+        icon: path.join(__dirname, './app-icon.png'),
         webPreferences: {
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js')
