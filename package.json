@@ -10,7 +10,14 @@
             "dist/**/*",
             "electron/**/*",
             "package.json"
-        ]
+        ],
+        "linux": {
+            "target": [
+                "AppImage",
+                "snap"
+            ],
+            "icon": "electron/app-icon.png"
+        }
     },
     "scripts": {
         "dev": "vite",
