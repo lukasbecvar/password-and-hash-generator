@@ -99,7 +99,7 @@ export default function Base64Tool() {
                     setImageDecodeError(false)
                     setTextProcessed(false)
                     setImageProcessed(false)
-                }} />
+                }}/>
             </div>
 
             <div className="mt-6">

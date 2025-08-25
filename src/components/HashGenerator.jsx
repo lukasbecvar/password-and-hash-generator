@@ -128,7 +128,7 @@ export default function HashGenerator() {
 						"PBKDF2",
 						"bcrypt",
 						"MySQL323",
-						"RIPEMD-160",
+						"RIPEMD-160"
 					].map((algo) => (
 						<option key={algo} value={algo}>
 							{algo}

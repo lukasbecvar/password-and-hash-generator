@@ -51,7 +51,7 @@ export default function EncryptionTool() {
 					iv: ivBytes,
 					mode: modeObj,
 					padding: paddingObj,
-					keySize: bitLength / 32,
+					keySize: bitLength / 32
 				})
 				result = encrypted.toString()
 			} else {
@@ -62,14 +62,12 @@ export default function EncryptionTool() {
 						iv: ivBytes,
 						mode: modeObj,
 						padding: paddingObj,
-						keySize: bitLength / 32,
+						keySize: bitLength / 32
 					}
 				)
 				result = decrypted.toString(CryptoJS.enc.Utf8)
-
 				if (!result) throw new Error("Decryption failed. Possibly wrong key, IV, mode or padding.")
 			}
-
 			setOutput(result)
 		} catch (err) {
 			setError("Error: " + err.message)
