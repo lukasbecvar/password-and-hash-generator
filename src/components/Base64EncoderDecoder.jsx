@@ -112,7 +112,7 @@ export default function Base64Tool() {
                         <label className="font-semibold">
                             {action === "encode" ? "Enter text to encode:" : "Paste Base64 to decode:"}
                         </label>
-                        <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" placeholder={action === "encode" ? "Enter text" : "Paste Base64"} value={textInput} onChange={(e) => setTextInput(e.target.value)}/>
+                        <textarea className="w-full p-3 bg-gray-800 text-white rounded-md resize-y" placeholder={action === "encode" ? "Enter text" : "Paste Base64"} value={textInput} onChange={(e) => setTextInput(e.target.value)}/>
                         <button className={`w-full md:w-32 py-2 rounded ${action === "encode" ? "bg-green-600 hover:bg-green-700" : "bg-yellow-600 hover:bg-yellow-700"}`} onClick={action === "encode" ? handleEncodeText : handleDecodeText}>
                             {action.charAt(0).toUpperCase() + action.slice(1)}
                         </button>
@@ -122,7 +122,7 @@ export default function Base64Tool() {
                                 <label className="block font-semibold mt-4">
                                     {action === "encode" ? "Encoded Base64:" : "Decoded text:"}
                                 </label>
-                                <textarea className="w-full h-24 p-3 bg-gray-800 text-white rounded border border-gray-600" readOnly value={textResult}/>
+                                <textarea className="w-full p-3 bg-gray-800 text-white rounded-md resize-y" readOnly value={textResult}/>
                             </div>
                         )}
                     </div>
@@ -155,7 +155,7 @@ export default function Base64Tool() {
                             <div>
                                 <label className="block font-semibold mt-4 mb-2">Preview & Encoded Base64:</label>
                                 <img src={imageBase64} alt="Uploaded preview" className="max-h-48 w-auto rounded mb-3 shadow-md mx-auto"/>
-                                <textarea className="w-full h-40 p-3 bg-gray-800 text-white rounded border border-gray-600 font-mono text-xs overflow-auto" readOnly value={imageBase64}/>
+                                <textarea className="w-full p-3 bg-gray-800 text-white rounded-md resize-y" readOnly value={imageBase64}/>
                             </div>
                         )}
                     </div>
@@ -165,7 +165,7 @@ export default function Base64Tool() {
                     <div className="space-y-4">
                         <label className="font-semibold">Paste Image Base64 to decode:</label>
                         <textarea
-                            className="w-full h-40 p-3 bg-gray-800 text-white rounded border border-gray-600"
+                            className="w-full p-3 bg-gray-800 text-white rounded-md resize-y"
                             placeholder="Paste image Base64"
                             value={imageDecodedBase64}
                             onChange={(e) => {
