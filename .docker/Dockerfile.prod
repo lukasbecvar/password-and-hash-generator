@@ -25,6 +25,9 @@ RUN rm -rf /usr/share/nginx/html/*
 # copy builded app to image
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# copy custom nginx config
+COPY .docker/nginx.conf /etc/nginx/conf.d/default.conf
+
 # expose port 80
 EXPOSE 80
 
