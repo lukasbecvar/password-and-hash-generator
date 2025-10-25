@@ -21,8 +21,8 @@ The entire NPM/Node stack is running in Docker for complete development independ
 2. Run the app with executable app image.
 
 ## Docker
-1. Clone latest docker image from github packages.
-2. Run the docker image.
+1. Pull latest docker image from github packages.
+2. Run the docker image with `docker run -p 80:80 ghcr.io/lukasbecvar/password-and-hash-generator:latest`.
 3. Access the app on http://localhost:80
 
 ## Dependencies

@@ -93,45 +93,45 @@ export default function EncryptionTool() {
 
 			{/* input */}
 			<div className="mb-4">
-				<label className="block text-sm font-semibold mb-1">Input:</label>
-				<textarea className="w-full p-2 bg-gray-800 text-white rounded-md resize-y" rows={5} value={input} onChange={(e) => setInput(e.target.value)} />
+				<label htmlFor="input-textarea" className="block text-sm font-semibold mb-1">Input:</label>
+				<textarea id="input-textarea" className="w-full p-2 bg-gray-800 text-white rounded-md resize-y" rows={5} value={input} onChange={(e) => setInput(e.target.value)} />
 			</div>
 
 			{/* key */}
 			<div className="mb-4">
-				<label className="block text-sm font-semibold mb-1">Key (exactly {requiredKeyLength} chars):</label>
-				<input className="w-full p-2 bg-gray-800 text-white rounded-md" value={key} onChange={(e) => setKey(e.target.value)} />
+				<label htmlFor="key-input" className="block text-sm font-semibold mb-1">Key (exactly {requiredKeyLength} chars):</label>
+				<input id="key-input" className="w-full p-2 bg-gray-800 text-white rounded-md" value={key} onChange={(e) => setKey(e.target.value)} />
 			</div>
 
 			{/* IV */}
 			{mode !== "ECB" && (
 				<div className="mb-4">
-					<label className="block text-sm font-semibold mb-1">IV (exactly {requiredIVLength} chars):</label>
-					<input className="w-full p-2 bg-gray-800 text-white rounded-md" value={iv} onChange={(e) => setIv(e.target.value)} />
+					<label htmlFor="iv-input" className="block text-sm font-semibold mb-1">IV (exactly {requiredIVLength} chars):</label>
+					<input id="iv-input" className="w-full p-2 bg-gray-800 text-white rounded-md" value={iv} onChange={(e) => setIv(e.target.value)} />
 				</div>
 			)}
 
 			{/* bit length, mode and padding */}
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 				<div>
-					<label className="block text-sm font-semibold mb-1">Bit length:</label>
-					<select className="w-full p-2 bg-gray-800 text-white rounded-md" value={bitLength} onChange={(e) => setBitLength(parseInt(e.target.value))}>
+					<label htmlFor="bit-length-select" className="block text-sm font-semibold mb-1">Bit length:</label>
+					<select id="bit-length-select" className="w-full p-2 bg-gray-800 text-white rounded-md" value={bitLength} onChange={(e) => setBitLength(parseInt(e.target.value))}>
 						<option value={128}>128</option>
 						<option value={192}>192</option>
 						<option value={256}>256</option>
 					</select>
 				</div>
 				<div>
-					<label className="block text-sm font-semibold mb-1">Mode:</label>
-					<select className="w-full p-2 bg-gray-800 text-white rounded-md" value={mode} onChange={(e) => setMode(e.target.value)}>
+					<label htmlFor="mode-select" className="block text-sm font-semibold mb-1">Mode:</label>
+					<select id="mode-select" className="w-full p-2 bg-gray-800 text-white rounded-md" value={mode} onChange={(e) => setMode(e.target.value)}>
 						{["CBC", "CFB", "OFB", "CTR", "ECB"].map((m) => (
 							<option key={m} value={m}>{m}</option>
 						))}
 					</select>
 				</div>
 				<div>
-					<label className="block text-sm font-semibold mb-1">Padding:</label>
-					<select className="w-full p-2 bg-gray-800 text-white rounded-md" value={padding} onChange={(e) => setPadding(e.target.value)}>
+					<label htmlFor="padding-select" className="block text-sm font-semibold mb-1">Padding:</label>
+					<select id="padding-select" className="w-full p-2 bg-gray-800 text-white rounded-md" value={padding} onChange={(e) => setPadding(e.target.value)}>
 						{["Pkcs7", "AnsiX923", "Iso10126", "ZeroPadding", "NoPadding"].map((p) => (
 							<option key={p} value={p}>{p}</option>
 						))}

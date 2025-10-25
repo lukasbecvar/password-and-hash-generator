@@ -52,8 +52,8 @@ export default function PasswordGenerator() {
 
             {/* length slider */}
             <div className="mb-6">
-                <label className="block mb-2 font-semibold text-sm">Length: {length}</label>
-                <input type="range" min="2" max="50" value={length} className="w-full accent-blue-500" onChange={(e) => setLength(parseInt(e.target.value))}/>
+                <label htmlFor="length-slider" className="block mb-2 font-semibold text-sm">Length: {length}</label>
+                <input id="length-slider" type="range" min="2" max="50" value={length} className="w-full accent-blue-500" onChange={(e) => setLength(parseInt(e.target.value))}/>
             </div>
 
             {/* options */}

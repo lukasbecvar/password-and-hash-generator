@@ -15,6 +15,8 @@ export default function Base64Tool() {
 
     // handle text encode
     const handleEncodeText = () => {
+        if (textInput.length === 0) return
+
         try {
             setTextResult(btoa(textInput))
         } catch {
@@ -25,6 +27,8 @@ export default function Base64Tool() {
 
     // handle text decode
     const handleDecodeText = () => {
+        if (textInput.length === 0) return
+
         try {
             setTextResult(atob(textInput))
         } catch {

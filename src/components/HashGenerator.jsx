@@ -110,15 +110,14 @@ export default function HashGenerator() {
 
 			{/* input text */}
 			<div className="mb-4">
-				<label className="block mb-2 font-semibold text-sm">Input:</label>
-				<textarea className="w-full p-2 bg-gray-800 text-white rounded-md resize-y" rows={3} value={input} onChange={(e) => setInput(e.target.value)}/>
+				<label htmlFor="hash-input" className="block mb-2 font-semibold text-sm">Input:</label>
+				<textarea id="hash-input" className="w-full p-2 bg-gray-800 text-white rounded-md resize-y" rows={3} value={input} onChange={(e) => setInput(e.target.value)}/>
 			</div>
 
 			{/* algorithm selection */}
 			<div className="mb-4">
-				<label className="block mb-2 font-semibold text-sm">Algorithm:</label>
-				<select className="w-full p-2 bg-gray-800 text-white rounded-md" value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
-					{[
+				<label htmlFor="algorithm-select" className="block mb-2 font-semibold text-sm">Algorithm:</label>
+				<select id="algorithm-select" className="w-full p-2 bg-gray-800 text-white rounded-md" value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>					{[
 						"MD4",
 						"MD5",
 						"SHA-1",
@@ -141,12 +140,12 @@ export default function HashGenerator() {
 			{(algorithm === "PBKDF2") && (
 				<div className="mb-4 space-y-3">
 					<div>
-						<label className="block text-sm font-semibold mb-1">Salt:</label>
-						<input type="text" value={salt} onChange={(e) => setSalt(e.target.value)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
+						<label htmlFor="salt-input" className="block text-sm font-semibold mb-1">Salt:</label>
+						<input id="salt-input" type="text" value={salt} onChange={(e) => setSalt(e.target.value)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
 					</div>
 					<div>
-						<label className="block text-sm font-semibold mb-1">Iterations:</label>
-						<input type="number" min={1} value={iterations} onChange={(e) => setIterations(parseInt(e.target.value) || 1)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
+						<label htmlFor="iterations-input" className="block text-sm font-semibold mb-1">Iterations:</label>
+						<input id="iterations-input" type="number" min={1} value={iterations} onChange={(e) => setIterations(parseInt(e.target.value) || 1)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
 					</div>
 				</div>
 			)}
@@ -154,8 +153,8 @@ export default function HashGenerator() {
 			{/* extra inputs for bcrypt */}
 			{algorithm === "bcrypt" && (
 				<div className="mb-4 space-y-3">
-					<label className="block text-sm font-semibold mb-1">Salt rounds:</label>
-					<input type="number" min={1} max={20} value={bcryptSaltRounds} onChange={(e) => setBcryptSaltRounds(parseInt(e.target.value) || 10)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
+					<label htmlFor="salt-rounds-input" className="block text-sm font-semibold mb-1">Salt rounds:</label>
+					<input id="salt-rounds-input" type="number" min={1} max={20} value={bcryptSaltRounds} onChange={(e) => setBcryptSaltRounds(parseInt(e.target.value) || 10)} className="w-full p-2 bg-gray-800 text-white rounded-md"/>
 				</div>
 			)}
 
