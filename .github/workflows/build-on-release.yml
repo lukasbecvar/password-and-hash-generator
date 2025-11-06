@@ -17,11 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      # install frontend dependencies
-      - name: Install frontend dependencies
+      # install dependencies
+      - name: Install dependencies
         run: npm install --loglevel=error
 
-      # build frontend assets
+      # build assets
       - name: Build assets
         run: npm run build
 
