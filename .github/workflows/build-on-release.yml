@@ -16,13 +16,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # setup php interpreter
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.4
-          extensions: intl, pdo_mysql, pdo
       
       # install frontend dependencies
       - name: Install frontend dependencies
@@ -48,7 +41,9 @@ jobs:
 
       # build electron app
       - name: Build electron app
-        run: npm run electron-dist
+        run: |
+          export ELECTRON_BUILDER_CACHE=/tmp/electron-builder-cache
+          npm run electron-dist
 
       # upload appimage to release
       - name: Upload appimage to release
