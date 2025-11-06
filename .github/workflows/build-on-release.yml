@@ -57,6 +57,7 @@ jobs:
           ELECTRON_BUILDER_CACHE: /tmp/electron-builder-cache
           CI: true
 
+      # upload AppImage to release
       - name: Upload AppImage to release
         uses: softprops/action-gh-release@v2
         with:
