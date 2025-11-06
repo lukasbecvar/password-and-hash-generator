@@ -39,14 +39,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # build electron app
-      - name: Build electron app
+      # prep electron-builder cache
+      - name: Prep electron-builder cache
         run: |
           export ELECTRON_BUILDER_CACHE=/tmp/electron-builder-cache
-          npm run electron-dist
+          mkdir -p "$ELECTRON_BUILDER_CACHE"
+          rm -rf "$ELECTRON_BUILDER_CACHE/appimage" || true
+        env:
+          ELECTRON_BUILDER_CACHE: /tmp/electron-builder-cache
 
-      # upload appimage to release
-      - name: Upload appimage to release
+      # build electron app
+      - name: Build electron app (AppImage + Snap, no publish)
+        run: |
+          export ELECTRON_BUILDER_CACHE=/tmp/electron-builder-cache
+          npx electron-builder --linux AppImage snap -p never
+        env:
+          ELECTRON_BUILDER_CACHE: /tmp/electron-builder-cache
+          CI: true
+
+      - name: Upload AppImage to release
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.AppImage
